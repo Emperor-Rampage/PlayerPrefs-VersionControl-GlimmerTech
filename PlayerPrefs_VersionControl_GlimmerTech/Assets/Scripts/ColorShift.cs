@@ -7,12 +7,22 @@ public class ColorShift : MonoBehaviour
 {
     public Color col1;
     public Color col2;
+    public Color IdleColor;
 
     public float speed = 3.0f;
 
     private Image image;
 
     public bool isTimerOn = false;
+
+    public bool IsTimerOn
+    {
+        get { return isTimerOn; }
+        set
+        {
+            isTimerOn = value;
+        }
+    }
 
     private void Start()
     {
@@ -21,10 +31,14 @@ public class ColorShift : MonoBehaviour
 
     void Update()
     {
-        while(isTimerOn)
+        float t = (Mathf.Sin(Time.time * speed) + 1) / 2.0f;
+        if(isTimerOn)
         {
-            float t = (Mathf.Sin(Time.time * speed) + 1) / 2.0f;
             image.color = Color.Lerp(col1, col2, t);
+        }
+        else
+        {
+            image.color = IdleColor;
         }
     }
 

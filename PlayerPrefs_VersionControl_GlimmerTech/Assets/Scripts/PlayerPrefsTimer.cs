@@ -54,6 +54,11 @@ public class PlayerPrefsTimer : MonoBehaviour
         
     }
 
+    private void OnDisable()
+    {
+        SaveTimer(); 
+    }
+
     public void PauseTimer()
     {
         pauseTimer = true;
