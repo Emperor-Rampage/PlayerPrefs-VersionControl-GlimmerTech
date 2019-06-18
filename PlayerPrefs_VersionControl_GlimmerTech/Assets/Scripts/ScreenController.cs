@@ -7,12 +7,8 @@ public class ScreenController : MonoBehaviour
     // Start is called before the first frame update
     void Start()
     {
-        
+        Screen.autorotateToLandscapeLeft = false;
+        Screen.autorotateToLandscapeRight = false;
     }
 
-    // Update is called once per frame
-    void Update()
-    {
-        
-    }
 }
