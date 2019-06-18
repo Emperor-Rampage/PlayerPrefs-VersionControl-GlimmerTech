@@ -11,12 +11,17 @@ public class PlayerPrefsTimer : MonoBehaviour
     private float timeDifference;
     private float addTime;
     //private bool timerRunning;
+    public TMP_Text longestText;
 
     public bool pauseTimer = true;
 
     void Start()
     {
         startTime = Time.time;
+        if(PlayerPrefs.GetString("LongestTime") != null)
+        {
+            longestText.text = PlayerPrefs.GetString("LongestTime");
+        }
     }
 
 
@@ -63,6 +68,7 @@ public class PlayerPrefsTimer : MonoBehaviour
     {
         pauseTimer = true;
         addTime = timeDifference;
+        SaveTimer();
     }
 
     public void StartTimer()
@@ -73,6 +79,7 @@ public class PlayerPrefsTimer : MonoBehaviour
 
     public void ClearTimer() //Full clear of the timer. Reset button.
     {
+        SaveTimer();
         startTime = Time.time;
         addTime = 0.0f;
         timeDifference = 0.0f;
@@ -81,6 +88,18 @@ public class PlayerPrefsTimer : MonoBehaviour
 
     public void SaveTimer()
     {
-
+        if(timeDifference > PlayerPrefs.GetFloat("FloatTime"))
+        {
+            PlayerPrefs.SetFloat("FloatTime", timeDifference);
+            PlayerPrefs.SetString("LongestTime", timerText.text);
+            longestText.text = PlayerPrefs.GetString("LongestTime");
+        }
+    }
+    
+    public void ClearSavedTimer()
+    {
+        PlayerPrefs.SetFloat("FloatTime", 0.0f);
+        PlayerPrefs.SetString("LongestTime", "00:00.00");
+        longestText.text = PlayerPrefs.GetString("LongestTime");
     }
 }
