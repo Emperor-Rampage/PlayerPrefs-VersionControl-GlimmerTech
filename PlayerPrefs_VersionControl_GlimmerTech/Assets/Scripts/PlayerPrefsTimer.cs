@@ -10,14 +10,20 @@ public class PlayerPrefsTimer : MonoBehaviour
     private float startTime;
     private float timeDifference;
     private float addTime;
+    private int lastSec;
     //private bool timerRunning;
     public TMP_Text longestText;
+    public AudioClip tick;
+    public AudioClip tock;
 
     public bool pauseTimer = true;
+
+    private AudioSource clock;
 
     void Start()
     {
         startTime = Time.time;
+        clock = GetComponent<AudioSource>();
         if(PlayerPrefs.GetString("LongestTime") != null)
         {
             longestText.text = PlayerPrefs.GetString("LongestTime");
@@ -55,6 +61,20 @@ public class PlayerPrefsTimer : MonoBehaviour
             }
 
             timerText.text = minutes + ":" + seconds;
+
+            if((int)timeDifference > lastSec)
+            {
+                if(lastSec % 2 == 0)
+                {
+                    clock.PlayOneShot(tick);
+                }
+                else
+                {
+                    clock.PlayOneShot(tock);
+                }
+
+                lastSec = (int)timeDifference;
+            }
         }
         
     }
@@ -84,6 +104,7 @@ public class PlayerPrefsTimer : MonoBehaviour
         addTime = 0.0f;
         timeDifference = 0.0f;
         timerText.text = "00:00.00";
+        lastSec = 0;
     }
 
     public void SaveTimer()
