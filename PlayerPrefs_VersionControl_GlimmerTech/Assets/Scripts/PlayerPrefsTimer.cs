@@ -123,4 +123,14 @@ public class PlayerPrefsTimer : MonoBehaviour
         PlayerPrefs.SetString("LongestTime", "00:00.00");
         longestText.text = PlayerPrefs.GetString("LongestTime");
     }
+
+    private void OnApplicationPause(bool pause)
+    {
+        SaveTimer();
+    }
+
+    private void OnApplicationQuit()
+    {
+        SaveTimer();
+    }
 }

@@ -36,4 +36,27 @@ public class ToggleSaver : MonoBehaviour
         }
     }
 
+    private void OnApplicationPause(bool pause)
+    {
+        if (soundToggle.isOn == true)
+        {
+            PlayerPrefs.SetInt("ToggleCheck", 1);
+        }
+        else
+        {
+            PlayerPrefs.SetInt("ToggleCheck", 2);
+        }
+    }
+
+    private void OnApplicationQuit()
+    {
+        if (soundToggle.isOn == true)
+        {
+            PlayerPrefs.SetInt("ToggleCheck", 1);
+        }
+        else
+        {
+            PlayerPrefs.SetInt("ToggleCheck", 2);
+        }
+    }
 }
